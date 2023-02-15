@@ -1,0 +1,203 @@
+Sub Transpose_TechSkills()
+
+Dim lastRow As Long
+Dim lastCol As Long
+Dim colBase As Long
+
+Dim tRow As Long
+Dim source As String
+Dim target As String
+        
+Dim ValorBuscado As Variant
+Dim RangoBusqueda As Range
+Dim Resultado As Variant
+
+    source = "DUMP"       'Set your source sheet here
+    target = "TECH_SKILLS"       'Set the Target sheet name
+    utility = "DATA_UTILITIES" 'Set the sheet for VLookUp
+    
+    'Get Last Row and Base & Last Column
+    tRow = 2                'Define the start row of the source and target sheet
+    lastRow = Sheets(source).Range("A" & Rows.Count).End(xlUp).Row
+    colBase = 23          'Define the start column of the source target
+    lastCol = 40           'Define the end column of the source targer , with : lastCol = Sheets(source).Cells(tRow, Columns.Count).End(xlToLeft).Column : this till last column with content
+    
+    'Clean the target sheet
+    Sheets(target).Cells.Clear
+    
+    'Write the headers
+    Sheets(target).Cells(1, 1) = "ID"
+    Sheets(target).Cells(1, 2) = "Tech Skill"
+    Sheets(target).Cells(1, 3) = "Level"
+    Sheets(target).Cells(1, 4) = "Tech Skill Mapped"
+    Sheets(target).Cells(1, 5) = "Level Mapped"
+    
+    Do While colBase < lastCol
+        For iRow = 2 To lastRow
+        
+            ID = Sheets(source).Cells(iRow, 1)
+            TechSkill = Sheets(source).Cells(1, colBase)
+            Level = Sheets(source).Cells(iRow, colBase)
+            
+            If Level <> "" Then
+            
+                Sheets(target).Cells(tRow, 1) = ID                    'ID
+                Sheets(target).Cells(tRow, 2) = TechSkill         'Tech Skill
+                Sheets(target).Cells(tRow, 3) = Level               'Level
+            
+                ' Tech Skill Mapped
+                ValorBuscado = Sheets(target).Cells(tRow, 2)
+                Set RangoBusqueda = Sheets(utility).Range("A2:B19") 'Cambiar por el rango que contiene los valores a buscar y devolver
+                On Error Resume Next
+                    Resultado = Application.WorksheetFunction.VLookup(ValorBuscado, RangoBusqueda, 2, False)
+                On Error GoTo 0
+                
+                If IsError(Resultado) Then 'Comprobar si se produjo un error al buscar el valor
+                    Sheets(target).Cells(tRow, 4) = ""
+                Else
+                    Sheets(target).Cells(tRow, 4) = Resultado
+                End If
+                
+                ' Level Skill Mapped
+                ValorBuscado_2 = Sheets(target).Cells(tRow, 3)
+                Set RangoBusqueda_2 = Sheets(utility).Range("E1:F5") 'Cambiar por el rango que contiene los valores a buscar y devolver
+                On Error Resume Next
+                    Resultado_2 = Application.WorksheetFunction.VLookup(ValorBuscado_2, RangoBusqueda_2, 2, False)
+                On Error GoTo 0
+                
+                If IsError(Resultado_2) Then 'Comprobar si se produjo un error al buscar el valor
+                    Sheets(target).Cells(tRow, 5) = ""
+                Else
+                    Sheets(target).Cells(tRow, 5) = Resultado_2
+                End If
+                
+                tRow = tRow + 1
+                
+            End If
+            
+        Next iRow
+        
+        colBase = colBase + 1       'Add 1 to the Column Base.  This shifts the loop over to the next Row set.
+        
+    Loop
+    
+    'Select the sheet with the result
+    Sheets(target).Select
+End Sub
+
+Sub Transpose_Languajes()
+
+Dim lastRow As Long
+Dim lastCol As Long
+Dim colBase As Long
+
+Dim tRow As Long
+Dim source As String
+Dim target As String
+        
+Dim ValorBuscado As Variant
+Dim RangoBusqueda As Range
+Dim Resultado As Variant
+
+    source = "DUMP"       'Set your source sheet here
+    target = "LANGUAJES"       'Set the Target sheet name
+    utility = "DATA_UTILITIES" 'Set the sheet for VLookUp
+    
+    'Get Last Row and Base & Last Column
+    tRow = 2                'Define the start row of the source and target sheet
+    lastRow = Sheets(source).Range("A" & Rows.Count).End(xlUp).Row
+    colBase = 40          'Define the start column of the source target
+    lastCol = 43           'Define the end column of the source targer , with : lastCol = Sheets(source).Cells(tRow, Columns.Count).End(xlToLeft).Column : this till last column with content
+    
+    'Clean the target sheet
+    Sheets(target).Cells.Clear
+    
+    'Write the headers
+    Sheets(target).Cells(1, 1) = "ID"
+    Sheets(target).Cells(1, 2) = "Languaje"
+    Sheets(target).Cells(1, 3) = "Level"
+    
+    Do While colBase < lastCol
+        For iRow = 2 To lastRow
+        
+            ID = Sheets(source).Cells(iRow, 1)
+            Languaje = Sheets(source).Cells(1, colBase)
+            Level = Sheets(source).Cells(iRow, colBase)
+            
+            If Level <> "" Then
+            
+                Sheets(target).Cells(tRow, 1) = ID                    'ID
+                Sheets(target).Cells(tRow, 2) = Languaje         'Languaje
+                Sheets(target).Cells(tRow, 3) = Level               'Level
+                
+                tRow = tRow + 1
+                
+            End If
+            
+        Next iRow
+        
+        colBase = colBase + 1       'Add 1 to the Column Base.  This shifts the loop over to the next Row set.
+        
+    Loop
+    
+    'Select the sheet with the result
+    Sheets(target).Select
+End Sub
+
+Sub Transpose_Certification()
+
+Dim lastRow As Long
+Dim lastCol As Long
+Dim colBase As Long
+
+Dim tRow As Long
+Dim source As String
+Dim target As String
+        
+Dim ValorBuscado As Variant
+Dim RangoBusqueda As Range
+Dim Resultado As Variant
+
+    source = "DUMP"       'Set your source sheet here
+    target = "CERTIFICATIONS"       'Set the Target sheet name
+    utility = "DATA_UTILITIES" 'Set the sheet for VLookUp
+    
+    'Get Last Row and Base & Last Column
+    tRow = 2                'Define the start row of the source and target sheet
+    lastRow = Sheets(source).Range("A" & Rows.Count).End(xlUp).Row
+    colBase = 43          'Define the start column of the source target
+    lastCol = 46           'Define the end column of the source targer , with : lastCol = Sheets(source).Cells(tRow, Columns.Count).End(xlToLeft).Column : this till last column with content
+    
+    'Clean the target sheet
+    Sheets(target).Cells.Clear
+    
+    'Write the headers
+    Sheets(target).Cells(1, 1) = "ID"
+    Sheets(target).Cells(1, 2) = "Certification"
+    
+    Do While colBase < lastCol
+        For iRow = 2 To lastRow
+        
+            ID = Sheets(source).Cells(iRow, 1)
+            Certification = Sheets(source).Cells(1, colBase)
+            Level = Sheets(source).Cells(iRow, colBase)
+            
+            If Level = "Ja" Then
+            
+                Sheets(target).Cells(tRow, 1) = ID                        'ID
+                Sheets(target).Cells(tRow, 2) = Certification         'Languaje
+                Level = Sheets(source).Cells(iRow, colBase)
+                
+                tRow = tRow + 1
+                
+            End If
+            
+        Next iRow
+        
+        colBase = colBase + 1       'Add 1 to the Column Base.  This shifts the loop over to the next Row set.
+        
+    Loop
+    
+    'Select the sheet with the result
+    Sheets(target).Select
+End Sub
