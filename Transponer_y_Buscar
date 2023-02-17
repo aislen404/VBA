@@ -20,7 +20,8 @@ Dim Resultado As Variant
     tRow = 2                'Define the start row of the source and target sheet
     lastRow = Sheets(source).Range("A" & Rows.Count).End(xlUp).Row
     colBase = 23          'Define the start column of the source target
-    lastCol = 40           'Define the end column of the source targer , with : lastCol = Sheets(source).Cells(tRow, Columns.Count).End(xlToLeft).Column : this till last column with content
+    lastCol = 40           'Define the end column of the source targer ,
+                                  'with : lastCol = Sheets(source).Cells(tRow, Columns.Count).End(xlToLeft).Column : this till last column with content
     
     'Clean the target sheet
     Sheets(target).Cells.Clear
@@ -100,7 +101,7 @@ Dim RangoBusqueda As Range
 Dim Resultado As Variant
 
     source = "DUMP"       'Set your source sheet here
-    target = "LANGUAJES"       'Set the Target sheet name
+    target = "LANGUAGES"       'Set the Target sheet name
     utility = "DATA_UTILITIES" 'Set the sheet for VLookUp
     
     'Get Last Row and Base & Last Column
@@ -185,9 +186,8 @@ Dim Resultado As Variant
             If Level = "Ja" Then
             
                 Sheets(target).Cells(tRow, 1) = ID                        'ID
-                Sheets(target).Cells(tRow, 2) = Certification         'Languaje
-                Level = Sheets(source).Cells(iRow, colBase)
-                
+                Sheets(target).Cells(tRow, 2) = Certification         'CERTIFICATION
+                    
                 tRow = tRow + 1
                 
             End If
